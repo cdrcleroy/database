@@ -242,21 +242,8 @@ WHERE
     AND i.nLog = l.nLog
     AND l.nomLog = 'Oracle 6';
 
--- requete 27
--- SELECT
---     Segment.nomSegment,
---     Salle.nomSalle,
---     CONCAT (Poste.indIP, '.', Poste.ad),
---     Logiciel.nomLog,
---     Installer.dateIns
--- FROM
---     Segment,
---     Salle,
---     Poste,
---     Logiciel,
---     Installer;
 
-SELECT sg.nomSegment AS 'requete 27', s.nomSalle, p.indIP || '.' || p.ad, l.nomLog, i.dateIns
+SELECT sg.nomSegment AS 'requete 27', s.nomSalle, p.indIP | '.' | p.ad, l.nomLog, i.dateIns
 FROM
     Segment sg,
     Salle s,

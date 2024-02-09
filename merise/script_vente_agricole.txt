@@ -1,0 +1,76 @@
+
+type de vente
+type de produit
+saison
+clients
+prix au kg
+date
+
+CREATE TABLE categorie(
+   id_cat BYTE,
+   categorie VARCHAR(50) NOT NULL,
+   PRIMARY KEY(id_cat)
+);
+
+CREATE TABLE produit(
+   id_prod BYTE,
+   nom_prod VARCHAR(50),
+   prix_kg CURRENCY,
+   id_cat BYTE NOT NULL,
+   PRIMARY KEY(id_prod),
+   FOREIGN KEY(id_cat) REFERENCES categorie(id_cat)
+);
+
+CREATE TABLE client(
+   id_client INT,
+   nom_client VARCHAR(50),
+   prenom VARCHAR(50),
+   PRIMARY KEY(id_client)
+);
+
+CREATE TABLE date_vente(
+   quantieme DATE,
+   PRIMARY KEY(quantieme)
+);
+
+CREATE TABLE vendre(
+   id_prod BYTE,
+   id_client INT,
+   quantieme DATE,
+   quantité INT,
+   PRIMARY KEY(id_prod, id_client, quantieme),
+   FOREIGN KEY(id_prod) REFERENCES produit(id_prod),
+   FOREIGN KEY(id_client) REFERENCES client(id_client),
+   FOREIGN KEY(quantieme) REFERENCES date_vente(quantieme)
+);
+
+
+categorie = (id_cat BYTE, categorie VARCHAR(50));
+produit = (id_prod BYTE, nom_prod VARCHAR(50), prix_kg CURRENCY, #id_cat);
+client = (id_client INT, nom_client VARCHAR(50), prenom VARCHAR(50));
+date_vente = (quantieme DATE);
+vendre = (#id_prod, #id_client, #quantieme, quantité INT);
+
+
+exemple contenu table categorie :
+id 1, categ : animaux
+id 2, categ : fruits
+id 3, categ : légumes
+
+exemple contenu table produit
+id 1, nom : poulets, prix : 10
+id 2, nom : lapins, prix : 12
+id 3, nom : poireaux, prix : 2
+id 4, nom : poires, prix : 3
+
+exemple contenu table client :
+id 1, nom : BIDOCH, prenom : robert
+
+exemple contenu table vendre :
+idprod 1, idclient 1, quantieme 3, quantite 5
+
+exemple contenu table date vente :
+quantieme 1
+quantieme 2
+quantieme 3
+quantieme 4

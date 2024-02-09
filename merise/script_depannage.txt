@@ -1,0 +1,64 @@
+client
+nom
+prenom
+adresse
+coordonnées
+materiel
+intervention
+date intervention
+prix intervention
+vente composant
+nom composant
+prix
+
+CREATE TABLE clients(
+   id_client SMALLINT,
+   nom VARCHAR(50),
+   prenom VARCHAR(50),
+   rue VARCHAR(50),
+   code_postal SMALLINT,
+   ville VARCHAR(50),
+   telephone VARCHAR(50),
+   email VARCHAR(50),
+   PRIMARY KEY(id_client)
+);
+
+CREATE TABLE materiel(
+   id_materiel INT,
+   type_materiel VARCHAR(50),
+   id_client SMALLINT NOT NULL,
+   PRIMARY KEY(id_materiel),
+   FOREIGN KEY(id_client) REFERENCES clients(id_client)
+);
+
+CREATE TABLE intervention(
+   id_intervention SMALLINT,
+   type_intervention VARCHAR(50),
+   prix SMALLINT,
+   date_intervention DATE,
+   id_materiel INT NOT NULL,
+   PRIMARY KEY(id_intervention),
+   FOREIGN KEY(id_materiel) REFERENCES materiel(id_materiel)
+);
+
+CREATE TABLE vente_composant(
+   id_composant SMALLINT,
+   nom_composant VARCHAR(50),
+   prix VARCHAR(50),
+   PRIMARY KEY(id_composant)
+);
+
+CREATE TABLE acheter(
+   id_intervention SMALLINT,
+   id_composant SMALLINT,
+   quantité BYTE,
+   PRIMARY KEY(id_intervention, id_composant),
+   FOREIGN KEY(id_intervention) REFERENCES intervention(id_intervention),
+   FOREIGN KEY(id_composant) REFERENCES vente_composant(id_composant)
+);
+
+clients = (id_client SMALLINT, nom VARCHAR(50), prenom VARCHAR(50), rue VARCHAR(50), code_postal SMALLINT, ville VARCHAR(50), telephone VARCHAR(50), email VARCHAR(50));
+materiel = (id_materiel INT, type_materiel VARCHAR(50), #id_client);
+intervention = (id_intervention SMALLINT, type_intervention VARCHAR(50), prix SMALLINT, date_intervention DATE, #id_materiel);
+vente_composant = (id_composant SMALLINT, nom_composant VARCHAR(50), prix VARCHAR(50));
+acheter = (#id_intervention, #id_composant, quantité BYTE);
